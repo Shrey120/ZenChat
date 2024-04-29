@@ -1,0 +1,7 @@
+{
+  "workbench.preferredDarkColorTheme": "Material Theme Deepforest",
+  "workbench.preferredHighContrastColorTheme": "Material Theme Ocean",
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "vs-code-prettier-eslint.prettierLast": true
+}
