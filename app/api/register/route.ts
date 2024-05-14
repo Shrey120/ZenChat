@@ -4,13 +4,39 @@ import User from "../../../models/userModel";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import multer from "multer";
+import path from "path";
 dotenv.config();
+
+const storage = multer.diskStorage({
+  destination: "./uploads/",
+  filename: function (req, file, cb) {
+    cb(
+      null,
+      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
+
+// Init upload
+const upload = multer({
+  storage: storage,
+}).single("image"); // Assuming your file input name is 'image'
 
 export async function POST(req: Request) {
   try {
     connectDB();
+
+    // upload(req, null, async (err: any) => {
+    //   if (err) {
+    //     return NextResponse.json(
+    //       { message: "Error uploading file" },
+    //       { status: 500 }
+    //     );
+    //   }
     const body = await req.json();
-    const { name, email, password } = body;
+    const { name, email, password, image } = body;
+    console.log(image);
 
     if (!name || !email || !password) {
       return NextResponse.json(
@@ -53,6 +79,7 @@ export async function POST(req: Request) {
     } catch (error) {
       return NextResponse.json({ message: "Server error" }, { status: 500 });
     }
+    // });
   } catch (error) {
     return NextResponse.json({ message: "Server error" }, { status: 500 });
   }

@@ -4,6 +4,7 @@ export interface UserDocument extends Document {
   name: string;
   email: string;
   password: string;
+  profileImage: string;
 }
 
 const userSchema = new mongoose.Schema<UserDocument>({
@@ -19,6 +20,10 @@ const userSchema = new mongoose.Schema<UserDocument>({
   password: {
     type: String,
     required: true,
+  },
+  profileImage: {
+    type: String,
+    default: null,
   },
 });
 

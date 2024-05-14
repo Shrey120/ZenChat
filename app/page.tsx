@@ -2,11 +2,21 @@ import { SiGooglechat } from "react-icons/si";
 import { Button } from "@/components/ui/button";
 import { LoginButton } from "@/components/auth/LoginButton";
 import { SignUpButton } from "@/components/auth/SignUpButton";
-
+import Image from "next/image";
+import bgimg from "@/public/Chating.jpg";
 export default function Home() {
   return (
     <main className='h-full flex gap-y-5 flex-col items-center justify-center'>
-      <div className=" size-full brightness-50 -z-10 absolute  bg-blend-darken bg-cover bg-center h-screen w-screen bg-[url('../images/Chating.jpg')]" />
+      <Image
+        className='-z-10 brightness-50'
+        src={bgimg}
+        alt='Hero Image'
+        placeholder='blur'
+        fill
+        quality={100}
+        sizes='100vw'
+        style={{ objectFit: "cover" }}
+      />
       <div className='flex text-7xl text-gray-300 font-serif'>
         <SiGooglechat className='text-violet-800' /> &nbsp; ZenChat
       </div>

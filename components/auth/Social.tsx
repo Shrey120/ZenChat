@@ -8,12 +8,12 @@ export default function Social() {
   return (
     <div className='w-full flex items-center justify-center gap-x-2'>
       <Button
-        className='w-[195px]'
+        className='w-full'
         variant='default'>
         <FcGoogle className='h-5 w-5' />
       </Button>
       <Button
-        className='w-[195px]'
+        className='w-full'
         variant='default'>
         <FaGithub className='h-5 w-5' />
       </Button>

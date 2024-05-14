@@ -27,10 +27,7 @@ export async function POST(req: Request) {
       email,
     });
     if (userPresent === null) {
-      return NextResponse.json(
-        { message: "Some error occurred" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "User not Found" }, { status: 400 });
     }
 
     // Compare passwords
