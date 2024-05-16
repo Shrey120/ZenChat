@@ -7,7 +7,10 @@ import dotenv from "dotenv";
 import User from "../../../models/userModel"; // Import UserDocument type/interface
 dotenv.config();
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   try {
     connectDB();
     // const body = await req.json();

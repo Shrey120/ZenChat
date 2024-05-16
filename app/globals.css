@@ -8,6 +8,20 @@ body,
   height: 100%;
 }
 
+.scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(31 29 29) white;
+}
+
+.scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: red;
+  border-radius: 100%;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
