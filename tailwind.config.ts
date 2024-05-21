@@ -74,7 +74,18 @@ const config = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [
+    function ({ addUtilities }: any) {
+      const newUtilities = {
+        ".textarea-appearance": {
+          "-webkit-appearance": "textarea",
+        },
+      };
+
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
+    require("tailwindcss-animate"),
+  ],
 } satisfies Config;
 
 export default config;

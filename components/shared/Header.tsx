@@ -1,39 +1,42 @@
+"use client";
+
 import React from "react";
 import { SiGooglechat } from "react-icons/si";
-import { IoSearch, IoNotifications } from "react-icons/io5";
+import { IoNotifications } from "react-icons/io5";
 import { FaPeopleGroup } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { AiOutlineUsergroupAdd } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
 import { IoSettings } from "react-icons/io5";
+import { useRouter } from "next/navigation";
+import { GiThreeFriends } from "react-icons/gi";
+
 export const Header = () => {
+  const router = useRouter();
   return (
-    <div className='bg-slate-900 h-100vh p-1'>
-      <div className='text-3xl p-2 flex justify-start flex-col items-center'>
+    <div className='bg-slate-900 h-100vh w-fit flex flex-col justify-between p-5'>
+      <div className='text-3xl '>
         <SiGooglechat className='text-violet-800' />
       </div>
 
-      <div className='text-2xl text-gray-300 h-[90vh] flex justify-center flex-col items-center'>
-        <div className='text-3xl p-2 my-[5px] cursor-pointer'>
-          <FaHome />
+      <div className='text-2xl text-gray-300'>
+        <div className='text-3xl mb-6 cursor-pointer'>
+          <FaHome onClick={() => router.push("/home")} />
         </div>
-        <div className='text-3xl p-2 my-[5px] cursor-pointer'>
-          <FaPeopleGroup />
+        <div className='text-3xl mb-6 cursor-pointer'>
+          <FaPeopleGroup onClick={() => router.push("/friends")} />
         </div>
-        <div className='text-3xl p-2 my-[5px] cursor-pointer'>
-          <IoNotifications />
+        <div className='text-3xl  mb-6 cursor-pointer'>
+          <IoNotifications onClick={() => router.push("/notifications")} />
         </div>
-        <div className='text-3xl p-2 my-[5px] cursor-pointer'>
-          <IoSearch />
+        <div className='text-3xl mb-6 cursor-pointer'>
+          <AiOutlineUsergroupAdd onClick={() => router.push("/creategroup")} />
         </div>
-        <div className='text-3xl p-2 my-[5px] cursor-pointer'>
-          <AiOutlineUsergroupAdd />
-        </div>
-        <div className='text-3xl p-2 my-[5px] cursor-pointer'>
+        <div className='text-3xl mb-6  cursor-pointer'>
           <BiLogOut />
         </div>
       </div>
-      <div className='text-3xl text-gray-100 p-2 flex justify-end flex-col items-center '>
+      <div className='text-3xl text-gray-100  '>
         <IoSettings />
       </div>
     </div>

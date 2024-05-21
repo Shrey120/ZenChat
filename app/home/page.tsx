@@ -6,15 +6,16 @@ import { HomeLayout } from "@/components/layout/HomeLayout";
 
 const page: NextPage = () => {
   return (
-    <div className='grid grid-cols-[50fr,400fr,700fr,300fr]'>
+    <div className='flex h-screen '>
       <Header />
-      <ProtectedRoute
-        user={true}
-        message='Please Login First'>
-        <HomeLayout />
-        <ChatLayout />
-      </ProtectedRoute>
-      <Header />
+      <div className='grid grid-cols-[1fr,3fr] w-full'>
+        <ProtectedRoute
+          user={true}
+          message='Please Login First'>
+          <HomeLayout />
+          <ChatLayout />
+        </ProtectedRoute>
+      </div>
     </div>
   );
 };

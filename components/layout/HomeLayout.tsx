@@ -3,26 +3,24 @@
 import React from "react";
 import { IoSearch } from "react-icons/io5";
 import { useRouter } from "next/navigation";
-import chating from "@/public/chating.jpg";
+import chating from "@/public/Chating.jpg";
 import Image from "next/image";
 
 export const HomeLayout = () => {
   const router = useRouter();
-  const chat = [1, 2, 3, 4, 5, 6, 7, 7, 7, 7, 8];
+  const chat = [1, 2, 3, 4, 5, 6, 37, 72, 10, 9, 8];
   const lm =
     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quaevoluptatem, quia, quas, quos quod quibusdam quidem quaevoluptatem, quia, quas, q";
   const clickHandler = () => {};
   return (
     <div className='h-screen'>
-      <div className=' bg-gray-50 m-7 rounded-full mr-40'>
-        <div className='text-2xl p-4 ml-3 cursor-pointer flex'>
-          <IoSearch />
-          <input
-            type='text'
-            placeholder='Enter for Search...'
-            className='bg-transparent text-base outline-none w-full ml-3'
-          />
-        </div>
+      <div className='bg-gray-50 m-7 rounded-full mr-40 text-2xl p-4 ml-7 cursor-pointer flex'>
+        <IoSearch />
+        <input
+          type='text'
+          placeholder='Enter for Search...'
+          className='bg-transparent text-base outline-none w-full ml-3'
+        />
       </div>
       <div className='m-7 max-h-[calc(100vh-144px)] overflow-auto scrollbar'>
         {chat.map((cur) => {
@@ -30,7 +28,7 @@ export const HomeLayout = () => {
             <div
               onClick={clickHandler}
               key={cur}
-              className='bg-slate-800 mb-4 rounded-xl p-10 border-slate-800 border-l-teal-300 border-[10px]'>
+              className=' bg-slate-800 mb-7 rounded-xl p-10 border-slate-800 border-l-teal-300 border-[10px] shadow-md shadow-ring'>
               <div className='flex items-center text-white  '>
                 <div className='relative flex justify-center'>
                   <Image
