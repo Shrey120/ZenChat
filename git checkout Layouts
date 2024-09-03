@@ -1,0 +1,29 @@
+[33mcommit c8b555b958dd1cf726a8bc07141b2043909c0428[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;32mLayouts[m[33m)[m
+Author: Shreyash Gupta <Shreygupta12028@gmail.com>
+Date: Thu May 16 20:19:11 2024 +0530
+
+    Home Layout Features
+
+[33mcommit 2e647559f1bef92f348d0c897fa55fc732b0d21c[m[33m ([m[1;31morigin/master[m[33m)[m
+Author: Shreyash Gupta <Shreygupta12028@gmail.com>
+Date: Tue May 14 20:30:48 2024 +0530
+
+    Zod
+
+[33mcommit ad4d497985911d39c95a4b518ca12eae6d76c441[m
+Author: Shreyash Gupta <Shreygupta12028@gmail.com>
+Date: Tue May 14 20:25:40 2024 +0530
+
+    Zod Features
+
+[33mcommit d114269b5a2089244cf0adb46b939f6fd73d99d4[m
+Author: Shreyash Gupta <Shreygupta12028@gmail.com>
+Date: Tue May 14 20:03:52 2024 +0530
+
+    Zod Features
+
+[33mcommit a81bdca5b74e473eb0f7ffe473a38addecc180e4[m
+Author: Shreyash Gupta <Shreygupta12028@gmail.com>
+Date: Mon Apr 29 12:45:03 2024 +0530
+
+    Initial commit with Auth
