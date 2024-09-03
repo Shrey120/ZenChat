@@ -5,12 +5,13 @@ import path from "path";
 import { createServer } from "http";
 import next from "next"; // Import Next.js
 import express from "express";
+
 dotenv.config();
+
 const app = express();
 const nextApp = next({ dev: false });
 const handle = nextApp.getRequestHandler();
-// const __dirname = path.resolve();
-// app.use(express.static(path.join(__dirname, ".next/")));
+
 const server = createServer(app);
 
 const io = new Server(server, {
@@ -18,7 +19,7 @@ const io = new Server(server, {
     origin: "https://zen-chat-d8bv.onrender.com/",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   },
-  transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
+  transports: ["websocket", "polling"],
   allowEIO3: true,
 });
 
@@ -32,7 +33,7 @@ io.on("connection", (socket) => {
     console.log(`User ${userId} connected to socketId ${socket.id}`);
   }
 
-  io.emit("getOnlineUsers", Object.keys(socketMap)); // send online users to all clients
+  io.emit("getOnlineUsers", Object.keys(socketMap));
 
   socket.on("sendNotification", (data) => {
     const { senderName, receiverId } = data;
@@ -79,18 +80,9 @@ const connectDB = async () => {
 
 const PORT = process.env.NEXT_PUBLIC_PORT || 4000;
 
-// if (process.env.NODE_ENV === "production") {
-//   const dirPath = path.resolve();
-
-//   app.use(express.static("../.next"));
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(dirPath, "../.next", "index.html"));
-//   });
-// }
-
 nextApp.prepare().then(() => {
   app.all("*", (req, res) => {
-    return handle(req, res); // Handle all requests through Next.js
+    return handle(req, res);
   });
 
   server.listen(PORT, () => {
