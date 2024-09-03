@@ -35,7 +35,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     setTimeout(() => {
       if (currentUser && !socketio) {
-        const socket = io("/", {
+        const socket = io("https://zen-chat-d8bv.onrender.com", {
           query: { userId: currentUser?._id },
           transports: ["websocket"],
           reconnection: true, // Allow reconnection attempts
