@@ -1,9 +1,9 @@
+"use client";
 import io from "socket.io-client";
 import { createContext, useState, useContext, useEffect } from "react";
 import { useContextApi } from "@/components/context/context";
-import { toast } from "react-toastify";
-
 const SocketContext = createContext<any>(null);
+import { toast } from "react-toastify";
 
 export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   const { currentUser, setMessages, timeCal } = useContextApi();
@@ -17,42 +17,45 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         console.log("Notification received:", data);
         toast.success(data.message);
       });
-
-      socketio.on("recieveMessage", (data: any) => {
-        setMessages((prev: any) => [
-          ...prev,
-          {
-            message: data.message,
-            senderId: data.senderId,
-            timeAgo: timeCal(),
-          },
-        ]);
-      });
+      if (socketio) {
+        socketio.on("recieveMessage", (data: any) => {
+          setMessages((prev: any) => [
+            ...prev,
+            {
+              message: data.message,
+              senderId: data.senderId,
+              timeAgo: timeCal(),
+            },
+          ]);
+        });
+      }
     }
   }, [socketio]);
 
   useEffect(() => {
     if (currentUser && !socketio) {
-      const socket = io("https://zen-chat-d8bv.onrender.com", {
-        query: { userId: currentUser?._id },
-        transports: ["websocket"], // Ensure websocket transport is enabled
-        reconnection: true, // Allow reconnection attempts
-        secure: true, // Use secure connection
-      });
+      setTimeout(() => {
+        const socket = io("https://zen-chat-d8bv.onrender.com/", {
+          query: { userId: currentUser?._id },
+          transports: ["websocket"],
+          reconnection: true, // Allow reconnection attempts
+          secure: true, // Use secure connection
+        });
 
-      setSocketio(socket);
+        setSocketio(socket);
 
-      socket.on("getOnlineUsers", (data) => {
-        setOnlineUsers(data);
-        console.log(data);
-      });
+        socket.on("getOnlineUsers", (data) => {
+          setOnlineUsers(data);
+          console.log(data);
+        });
 
-      socket.on("disconnect", () => {
-        console.log("Socket disconnected");
-        setSocketio(null);
-      });
+        socket.on("disconnect", () => {
+          console.log("Socket disconnected");
+          setSocketio(null);
+        });
+      }, 1000);
     }
-  }, [currentUser, socketio]);
+  }, [currentUser]);
 
   return (
     <SocketContext.Provider value={{ socketio, onlineUsers }}>
