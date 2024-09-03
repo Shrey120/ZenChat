@@ -11,6 +11,8 @@ const app = express();
 const server = createServer(app);
 
 const io = new Server(server, {
+  wsEngine: ["ws", "wss"],
+  path: "/socket",
   cors: {
     origin: "https://zen-chat-d8bv.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
