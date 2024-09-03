@@ -80,14 +80,13 @@ const connectDB = async () => {
 
 const PORT = process.env.NEXT_PUBLIC_PORT || 4000;
 
-nextApp.prepare().then(() => {
-  app.all("*", (req, res) => {
-    return handle(req, res);
-  });
-
-  server.listen(PORT, () => {
-    console.log(`Socket server running on port ${PORT}`);
-  });
+// nextApp.prepare().then(() => {
+//   app.all("*", (req, res) => {
+//     return handle(req, res);
+//   });
+// });
+server.listen(PORT, () => {
+  console.log(`Socket server running on port ${PORT}`);
 });
 
 export default connectDB;
