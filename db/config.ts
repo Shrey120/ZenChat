@@ -3,19 +3,19 @@ import dotenv from "dotenv";
 import { Server } from "socket.io";
 import path from "path";
 import { createServer } from "http";
-import express from "express";
 import next from "next"; // Import Next.js
-
+import express from "express";
 dotenv.config();
-
 const app = express();
-const nextApp = next({ dev: process.env.NODE_ENV !== "production" }); // Initialize Next.js app
-const handle = nextApp.getRequestHandler(); // Handle requests with Next.js
-
+const nextApp = next({ dev: false });
+const handle = nextApp.getRequestHandler();
+// const __dirname = path.resolve();
+// app.use(express.static(path.join(__dirname, ".next/")));
 const server = createServer(app);
+
 const io = new Server(server, {
   cors: {
-    origin: "https://zen-chat-d8bv.onrender.com", // Adjusted to remove trailing slash
+    origin: "https://zen-chat-d8bv.onrender.com/",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
     console.log(`User ${userId} connected to socketId ${socket.id}`);
   }
 
-  io.emit("getOnlineUsers", Object.keys(socketMap)); // Send online users to all clients
+  io.emit("getOnlineUsers", Object.keys(socketMap)); // send online users to all clients
 
   socket.on("sendNotification", (data) => {
     const { senderName, receiverId } = data;
@@ -79,10 +79,18 @@ const connectDB = async () => {
 
 const PORT = process.env.NEXT_PUBLIC_PORT || 4000;
 
+// if (process.env.NODE_ENV === "production") {
+//   const dirPath = path.resolve();
+
+//   app.use(express.static("../.next"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(dirPath, "../.next", "index.html"));
+//   });
+// }
+
 nextApp.prepare().then(() => {
-  // Serve all Next.js requests
   app.all("*", (req, res) => {
-    return handle(req, res); // Let Next.js handle the request
+    return handle(req, res); // Handle all requests through Next.js
   });
 
   server.listen(PORT, () => {
@@ -90,5 +98,5 @@ nextApp.prepare().then(() => {
   });
 });
 
-connectDB();
+export default connectDB;
 export { io };
