@@ -34,7 +34,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (currentUser && !socketio) {
-      const socket = io("https://zen-chat.me", {
+      const socket = io("https://socket-io-zmra.onrender.com/", {
         query: { userId: currentUser?._id },
         transports: ["websocket", "polling"],
       });
