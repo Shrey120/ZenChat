@@ -11,6 +11,7 @@ const server = https.createServer(app);
 
 const io = new Server(server, {
   path: "/socket",
+  wsEngine: ["wss", "ws"],
   cors: {
     origin: "*",
   },
