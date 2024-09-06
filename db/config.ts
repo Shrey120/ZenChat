@@ -1,23 +1,16 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
+import path from "path";
 import { createServer } from "http";
-import https from "https";
 import express from "express";
-import fs from "fs";
-
 dotenv.config();
-
 const app = express();
-const options = {
-  key: fs.readFileSync("path/to/your/private.key"),
-  cert: fs.readFileSync("path/to/your/certificate.crt"),
-};
-const server = https.createServer(options, app);
+const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://zen-chat-d8bv.onrender.com",
+    origin: "ws://zen-chat-d8bv.onrender.com",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
