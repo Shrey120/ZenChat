@@ -42,7 +42,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       });
 
       setSocketio(socket);
-      console.log("Socket connected");
+      console.log("Socket connected to" + socketio);
       socket.on("getOnlineUsers", (data) => {
         setOnlineUsers(data);
         console.log(data);
