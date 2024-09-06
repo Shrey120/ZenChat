@@ -7,7 +7,7 @@ import { createServer } from "http";
 import express from "express";
 dotenv.config();
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 
 const io = new Server(server, {
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
