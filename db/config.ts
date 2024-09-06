@@ -9,10 +9,6 @@ const app = express();
 const server = createServer(app);
 
 const io = new Server(server, {
-  cors: {
-    origin: "https://zen-chat.me/",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
   allowEIO3: true,
 });
