@@ -37,7 +37,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       if (currentUser && !socketio) {
         const socket = io("wss://zen-chat.me/socket.io", {
           query: { userId: currentUser?._id },
-          transports: ["websocket"],
+          transports: ["websocket", "polling"],
         });
 
         setSocketio(socket);
