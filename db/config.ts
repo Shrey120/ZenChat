@@ -1,16 +1,14 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
-import path from "path";
-import https from "https";
-import { createServer } from "http";
+import http from "http";
 import express from "express";
+import path from "path";
 dotenv.config();
 const app = express();
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 const io = new Server(server, {
-  path: "/socket",
   cors: {
     origin: "https://zen-chat.me",
   },
@@ -75,6 +73,12 @@ const connectDB = async () => {
 
 const PORT = process.env.NEXT_PUBLIC_PORT || 4000;
 
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, ".next")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, ".next", "static"));
+});
 // if (process.env.NODE_ENV === "production") {
 //   const dirPath = path.resolve();
 

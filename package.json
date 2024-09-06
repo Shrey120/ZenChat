@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "build": "npm install && next build",
+    "start": "node db/config.ts && next start",
     "lint": "next lint"
   },
   "dependencies": {

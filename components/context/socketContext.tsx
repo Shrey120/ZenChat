@@ -33,39 +33,24 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   }, [socketio]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (currentUser && !socketio) {
-        const socket = io("https://zen-chat.me", {
-          cert: "cert.pem",
-          key: "key.pem",
-          path: "/socket",
-          reconnection: true,
-          reconnectionAttempts: 5,
-          query: { userId: currentUser?._id },
-          transports: ["websocket", "polling"],
-        });
+    if (currentUser && !socketio) {
+      const socket = io("https://zen-chat.me", {
+        query: { userId: currentUser?._id },
+        transports: ["websocket", "polling"],
+      });
 
-        setSocketio(socket);
-        console.log("Socket connected to" + socket);
-        socket.on("getOnlineUsers", (data) => {
-          setOnlineUsers(data);
-          console.log(data);
-        });
+      setSocketio(socket);
+      console.log("Socket connected to" + socket);
+      socket.on("getOnlineUsers", (data) => {
+        setOnlineUsers(data);
+        console.log(data);
+      });
 
-        socket.on("disconnect", () => {
-          console.log("Socket disconnected");
-          setSocketio(null);
-        });
-      }
-    }, 1000);
-
-    return () => {
-      clearTimeout(timer); // Clean up the timer
-      if (socketio) {
-        socketio?.disconnect();
-      }
-      setSocketio(null);
-    };
+      socket.on("disconnect", () => {
+        console.log("Socket disconnected");
+        setSocketio(null);
+      });
+    }
   }, [currentUser]);
 
   return (
