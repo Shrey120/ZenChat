@@ -2,14 +2,18 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
 import path from "path";
-import http from "http";
+import https from "https";
 import { createServer } from "http";
 import express from "express";
 dotenv.config();
 const app = express();
-const server = createServer(app);
+const server = https.createServer(app);
 
 const io = new Server(server, {
+  path: "/socket",
+  cors: {
+    origin: "*",
+  },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
   allowEIO3: true,
 });

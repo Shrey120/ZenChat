@@ -36,6 +36,9 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     const timer = setTimeout(() => {
       if (currentUser && !socketio) {
         const socket = io("https://zen-chat.me", {
+          path: "/socket",
+          reconnection: true,
+          reconnectionAttempts: 5,
           query: { userId: currentUser?._id },
           transports: ["websocket", "polling"],
         });
