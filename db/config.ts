@@ -11,9 +11,8 @@ const server = https.createServer(app);
 
 const io = new Server(server, {
   path: "/socket",
-  wsEngine: ["wss", "ws"],
   cors: {
-    origin: "*",
+    origin: "https://zen-chat.me",
   },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
   allowEIO3: true,
