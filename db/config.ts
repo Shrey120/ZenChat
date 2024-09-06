@@ -1,16 +1,24 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
-import path from "path";
-import { createServer } from "http";
+import https from "https";
 import express from "express";
+import fs from "fs";
 
 dotenv.config();
 
 const app = express();
-const server = createServer(app);
+const options = {
+  key: fs.readFileSync("path/to/your/private.key"),
+  cert: fs.readFileSync("path/to/your/certificate.crt"),
+};
+const server = https.createServer(options, app);
 
 const io = new Server(server, {
+  cors: {
+    origin: "https://zen-chat-d8bv.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
   allowEIO3: true,
 });
@@ -72,7 +80,15 @@ const connectDB = async () => {
 
 const PORT = process.env.NEXT_PUBLIC_PORT || 4000;
 
-// Start the server
+// if (process.env.NODE_ENV === "production") {
+//   const dirPath = path.resolve();
+
+//   app.use(express.static("../.next"));
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(dirPath, "../.next", "index.html"));
+//   });
+// }
+
 server.listen(PORT, () => {
   console.log(`Socket server running on port ${PORT}`);
 });
