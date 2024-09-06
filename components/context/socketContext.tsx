@@ -33,26 +33,36 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   }, [socketio]);
 
   useEffect(() => {
-    if (currentUser && !socketio) {
-      const socket = io("wss://zen-chat.me/socket.io", {
-        query: { userId: currentUser?._id },
-        transports: ["websocket"],
-        reconnection: true, // Allow reconnection attempts
-        secure: true, // Use secure connection
-      });
+    const timer = setTimeout(() => {
+      if (currentUser && !socketio) {
+        const socket = io("wss://zen-chat.me/socket.io", {
+          query: { userId: currentUser?._id },
+          transports: ["websocket"],
+          reconnection: true, // Allow reconnection attempts
+          secure: true, // Use secure connection
+        });
 
-      setSocketio(socket);
-      console.log("Socket connected to" + socketio);
-      socket.on("getOnlineUsers", (data) => {
-        setOnlineUsers(data);
-        console.log(data);
-      });
+        setSocketio(socket);
+        console.log("Socket connected to" + socketio);
+        socket.on("getOnlineUsers", (data) => {
+          setOnlineUsers(data);
+          console.log(data);
+        });
 
-      socket.on("disconnect", () => {
-        console.log("Socket disconnected");
-        setSocketio(null);
-      });
-    }
+        socket.on("disconnect", () => {
+          console.log("Socket disconnected");
+          setSocketio(null);
+        });
+      }
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer); // Clean up the timer
+      if (socketio) {
+        socketio?.disconnect();
+      }
+      setSocketio(null);
+    };
   }, [currentUser]);
 
   return (
