@@ -38,12 +38,10 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
         const socket = io("wss://zen-chat.me/socket.io", {
           query: { userId: currentUser?._id },
           transports: ["websocket"],
-          reconnection: true, // Allow reconnection attempts
-          secure: true, // Use secure connection
         });
 
         setSocketio(socket);
-        console.log("Socket connected to" + socketio);
+        console.log("Socket connected to" + socket);
         socket.on("getOnlineUsers", (data) => {
           setOnlineUsers(data);
           console.log(data);
