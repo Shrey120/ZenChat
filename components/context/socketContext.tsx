@@ -36,6 +36,8 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
     const timer = setTimeout(() => {
       if (currentUser && !socketio) {
         const socket = io("https://zen-chat.me", {
+          cert: "cert.pem",
+          key: "key.pem",
           path: "/socket",
           reconnection: true,
           reconnectionAttempts: 5,
