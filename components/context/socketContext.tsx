@@ -33,28 +33,27 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
   }, [socketio]);
 
   useEffect(() => {
-    setTimeout(() => {
-      if (currentUser && !socketio) {
-        const socket = io("https://zen-chat-d8bv.onrender.com", {
-          query: { userId: currentUser?._id },
-          transports: ["websocket"],
-          reconnection: true, // Allow reconnection attempts
-          secure: true, // Use secure connection
-        });
+    if (currentUser && !socketio) {
+      const socket = io("https://zen-chat-d8bv.onrender.com", {
+        query: { userId: currentUser?._id },
+        transports: ["websocket"],
+        reconnection: true, // Allow reconnection attempts
+        secure: true, // Use secure connection
+      });
 
-        setSocketio(socket);
+      setSocketio(socket);
 
-        socket.on("getOnlineUsers", (data) => {
-          setOnlineUsers(data);
-          console.log(data);
-        });
+      socket.on("getOnlineUsers", (data) => {
+        setOnlineUsers(data);
+        console.log(data);
+      });
 
-        socket.on("disconnect", () => {
-          console.log("Socket disconnected");
-          setSocketio(null);
-        });
-      }
-    }, 1000);
+      socket.on("disconnect", () => {
+        console.log("Socket disconnected");
+        setSocketio(null);
+      });
+    }
+
     return () => {
       if (socketio) {
         socketio.disconnect();
