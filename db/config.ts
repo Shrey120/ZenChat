@@ -10,7 +10,7 @@ const server = createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "ws://zen-chat-d8bv.onrender.com",
+    origin: "http://zen-chat.me/",
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
