@@ -34,7 +34,7 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     if (currentUser && !socketio) {
-      const socket = io("http://zen-chat.me/", {
+      const socket = io("https://zen-chat.me/", {
         query: { userId: currentUser?._id },
         transports: ["websocket"],
         reconnection: true, // Allow reconnection attempts
