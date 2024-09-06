@@ -2,11 +2,12 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { Server } from "socket.io";
 import path from "path";
+import http from "http";
 import { createServer } from "http";
 import express from "express";
 dotenv.config();
 const app = express();
-const server = createServer(app);
+const server = http.createServer(app);
 
 const io = new Server(server, {
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
