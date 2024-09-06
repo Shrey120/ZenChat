@@ -4,19 +4,18 @@ import { Server } from "socket.io";
 import path from "path";
 import { createServer } from "http";
 import express from "express";
+import next from "next";
+
 dotenv.config();
+
+const dev = process.env.NEXT_PUBLIC_NODE_ENV !== "production";
+const nextApp = next({ dev });
+const handle = nextApp.getRequestHandler();
+
 const app = express();
-// const __dirname = path.resolve();
-// app.use(express.static(path.join(__dirname, ".next/")));
 const server = createServer(app);
 
 const io = new Server(server, {
-  wsEngine: ["ws", "wss"],
-  path: "/socket",
-  cors: {
-    origin: "https://zen-chat-d8bv.onrender.com",
-    methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
-  },
   transports: ["websocket", "polling"], // Add 'polling' as a fallback transport
   allowEIO3: true,
 });
@@ -78,17 +77,18 @@ const connectDB = async () => {
 
 const PORT = process.env.NEXT_PUBLIC_PORT || 4000;
 
-// if (process.env.NODE_ENV === "production") {
-//   const dirPath = path.resolve();
+nextApp.prepare().then(() => {
+  if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
+    // Let Next.js handle static assets and routing
+    app.get("*", (req, res) => {
+      return handle(req, res); // Delegate requests to Next.js
+    });
+  }
 
-//   app.use(express.static("../.next"));
-//   app.get("*", (req, res) => {
-//     res.sendFile(path.resolve(dirPath, "../.next", "index.html"));
-//   });
-// }
-
-server.listen(PORT, () => {
-  console.log(`Socket server running on port ${PORT}`);
+  // Start the server
+  server.listen(PORT, () => {
+    console.log(`Socket server running on port ${PORT}`);
+  });
 });
 
 export default connectDB;

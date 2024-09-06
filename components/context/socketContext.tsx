@@ -37,7 +37,6 @@ export const SocketProvider = ({ children }: { children: React.ReactNode }) => {
       if (currentUser && !socketio) {
         const socket = io("https://zen-chat-d8bv.onrender.com", {
           query: { userId: currentUser?._id },
-          path: "/socket",
           transports: ["websocket"],
           reconnection: true, // Allow reconnection attempts
           secure: true, // Use secure connection
